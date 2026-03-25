@@ -41,6 +41,12 @@ class iDokladCredentials {
      * @var string
      */
     private $authType = 'oauth2';
+
+    /**
+     * Stores token type
+     * @var string
+     */
+    private $token_type;
     
     /**
      * Initializes iDokladCredentials object and loads data
@@ -112,7 +118,9 @@ class iDokladCredentials {
     public function loadFromJson($json){
         $arr = json_decode($json, true);
         foreach($arr as $key => $val){
-            $this->$key = $val;
+            if (property_exists($this, $key)){
+                $this->$key = $val;
+            }
         }
     }
     
